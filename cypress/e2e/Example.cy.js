@@ -44,7 +44,14 @@ describe("User Data Test", () => {
     var no_of_links=count
     cy.log(no_of_links)
   })
-  cy.get('span[jsname="KJZ0wb"]').click()
+})
+  it.only('number of links',()=>{
+    cy.visit('https://www.google.com/search?q=cricket&oq=cricket&gs_lcrp=EgZjaHJvbWUyDggAEEUYJxg5GIAEGIoFMhIIARAuGEMYxwEY0QMYgAQYigUyEggCEAAYQxiDARixAxiABBiKBTISCAMQABhDGIMBGLEDGIAEGIoFMhIIBBAuGEMY1AIYsQMYgAQYigUyEggFEC4YQxjUAhixAxiABBiKBTISCAYQLhhDGNQCGLEDGIAEGIoFMhIIBxAAGEMYgwEYsQMYgAQYigUyDQgIEAAYkgMYgAQYigUyDwgJEAAYQxjJAxiABBiKBagCCLACAQ&sourceid=chrome&ie=UTF-8#cobssid=s')
+      cy.get('div[id="res"]').find('a').its('length').then((count)=>{
+      var no_of_links=count
+      cy.log(no_of_links)
+    })
+  
   
   // cy.get("loc").its('length').then((val)=>{
   //   cy.log(val)
@@ -56,4 +63,4 @@ describe("User Data Test", () => {
   // })
   
   })
-});
+})
