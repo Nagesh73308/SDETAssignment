@@ -4,7 +4,9 @@ describe("User Data Test", () => {
     cy.fixture("example1.json").as("userData");
   });
   it("should access user data from fixture", function () {
+    //cy.intercept('POST', '**/login').as('login');
     cy.visit(Cypress.env("baseUrl"));
+    //cy.wait('@login')
     ExamplePage.clickOnTableData().click({ force: true });
     ExamplePage.clickOnInputBox()
       .clear()
@@ -36,4 +38,22 @@ describe("User Data Test", () => {
     }
     cy.wait(4000);
   });
+  it.only('number of links',()=>{
+  cy.visit('https://www.google.com/search?q=cricket&oq=cricket&gs_lcrp=EgZjaHJvbWUyDggAEEUYJxg5GIAEGIoFMhIIARAuGEMYxwEY0QMYgAQYigUyEggCEAAYQxiDARixAxiABBiKBTISCAMQABhDGIMBGLEDGIAEGIoFMhIIBBAuGEMY1AIYsQMYgAQYigUyEggFEC4YQxjUAhixAxiABBiKBTISCAYQLhhDGNQCGLEDGIAEGIoFMhIIBxAAGEMYgwEYsQMYgAQYigUyDQgIEAAYkgMYgAQYigUyDwgJEAAYQxjJAxiABBiKBagCCLACAQ&sourceid=chrome&ie=UTF-8#cobssid=s')
+    cy.get('div[id="res"]').find('a').its('length').then((count)=>{
+    var no_of_links=count
+    cy.log(no_of_links)
+  })
+  cy.get('span[jsname="KJZ0wb"]').click()
+  
+  // cy.get("loc").its('length').then((val)=>{
+  //   cy.log(val)
+  //   for(let i=0;i<=val.length-1;i++){
+  //     if(val%2==0){
+  //       cy.get('locater').eq(i).check()
+  //     }
+  //   }
+  // })
+  
+  })
 });
