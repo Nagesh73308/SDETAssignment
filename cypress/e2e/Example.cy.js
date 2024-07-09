@@ -1,4 +1,5 @@
 import ExamplePage from "../pages/example.po";
+
 describe("User Data Test", () => {
   before(() => {
     cy.fixture("example1.json").as("userData");
@@ -38,29 +39,49 @@ describe("User Data Test", () => {
     }
     cy.wait(4000);
   });
-  it.only('number of links',()=>{
-  cy.visit('https://www.google.com/search?q=cricket&oq=cricket&gs_lcrp=EgZjaHJvbWUyDggAEEUYJxg5GIAEGIoFMhIIARAuGEMYxwEY0QMYgAQYigUyEggCEAAYQxiDARixAxiABBiKBTISCAMQABhDGIMBGLEDGIAEGIoFMhIIBBAuGEMY1AIYsQMYgAQYigUyEggFEC4YQxjUAhixAxiABBiKBTISCAYQLhhDGNQCGLEDGIAEGIoFMhIIBxAAGEMYgwEYsQMYgAQYigUyDQgIEAAYkgMYgAQYigUyDwgJEAAYQxjJAxiABBiKBagCCLACAQ&sourceid=chrome&ie=UTF-8#cobssid=s')
-    cy.get('div[id="res"]').find('a').its('length').then((count)=>{
-    var no_of_links=count
-    cy.log(no_of_links)
-  })
-})
-  it.only('number of links',()=>{
-    cy.visit('https://www.google.com/search?q=cricket&oq=cricket&gs_lcrp=EgZjaHJvbWUyDggAEEUYJxg5GIAEGIoFMhIIARAuGEMYxwEY0QMYgAQYigUyEggCEAAYQxiDARixAxiABBiKBTISCAMQABhDGIMBGLEDGIAEGIoFMhIIBBAuGEMY1AIYsQMYgAQYigUyEggFEC4YQxjUAhixAxiABBiKBTISCAYQLhhDGNQCGLEDGIAEGIoFMhIIBxAAGEMYgwEYsQMYgAQYigUyDQgIEAAYkgMYgAQYigUyDwgJEAAYQxjJAxiABBiKBagCCLACAQ&sourceid=chrome&ie=UTF-8#cobssid=s')
-      cy.get('div[id="res"]').find('a').its('length').then((count)=>{
-      var no_of_links=count
-      cy.log(no_of_links)
-    })
-  
-  
-  // cy.get("loc").its('length').then((val)=>{
-  //   cy.log(val)
-  //   for(let i=0;i<=val.length-1;i++){
-  //     if(val%2==0){
-  //       cy.get('locater').eq(i).check()
-  //     }
-  //   }
-  // })
-  
-  })
-})
+  it("number of links", () => {
+    cy.visit(
+      "https://www.google.com/search?q=cricket&oq=cricket&gs_lcrp=EgZjaHJvbWUyDggAEEUYJxg5GIAEGIoFMhIIARAuGEMYxwEY0QMYgAQYigUyEggCEAAYQxiDARixAxiABBiKBTISCAMQABhDGIMBGLEDGIAEGIoFMhIIBBAuGEMY1AIYsQMYgAQYigUyEggFEC4YQxjUAhixAxiABBiKBTISCAYQLhhDGNQCGLEDGIAEGIoFMhIIBxAAGEMYgwEYsQMYgAQYigUyDQgIEAAYkgMYgAQYigUyDwgJEAAYQxjJAxiABBiKBagCCLACAQ&sourceid=chrome&ie=UTF-8#cobssid=s"
+    );
+    cy.get('div[id="res"]')
+      .find("a")
+      .its("length")
+      .then((count) => {
+        var no_of_links = count;
+        cy.log(no_of_links);
+      });
+  });
+  it("number of links", () => {
+    cy.visit(
+      "https://www.google.com/search?q=cricket&oq=cricket&gs_lcrp=EgZjaHJvbWUyDggAEEUYJxg5GIAEGIoFMhIIARAuGEMYxwEY0QMYgAQYigUyEggCEAAYQxiDARixAxiABBiKBTISCAMQABhDGIMBGLEDGIAEGIoFMhIIBBAuGEMY1AIYsQMYgAQYigUyEggFEC4YQxjUAhixAxiABBiKBTISCAYQLhhDGNQCGLEDGIAEGIoFMhIIBxAAGEMYgwEYsQMYgAQYigUyDQgIEAAYkgMYgAQYigUyDwgJEAAYQxjJAxiABBiKBagCCLACAQ&sourceid=chrome&ie=UTF-8#cobssid=s"
+    );
+    cy.get('div[id="res"]')
+      .find("a")
+      .its("length")
+      .then((count) => {
+        var no_of_links = count;
+        cy.log(no_of_links);
+      });
+    }) 
+  });
+ 
+  describe.only('CSV to JSON Test', () => {
+      it.only("csv to json", () => {
+        cy.readFile("D:/nagesh/cypress-project1/cypress/fixtures/industry (1).csv", 'binary').then((data) => {
+          cy.task("csvToJson", data).then((jsonData) => {
+            // Process data
+            cy.log(JSON.stringify(jsonData));
+    
+            // Example assertions based on your JSON structure
+            cy.writeFile("cypress/fixtures/expect1.json",jsonData)
+            
+            // expect(jsonData).to.have.length.greaterThan(0);
+            // Adjust the assertions as per your data structure
+          });
+          cy.readFile('D:/nagesh/cypress-project1/cypress/fixtures/expect1.json').then((data)=>{
+
+            expect(data[7].Industry).to.equal('Business Opportunity')
+          })
+        });
+      });
+    });

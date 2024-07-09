@@ -9,7 +9,27 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // Register 'downloadFile' task
       on('task', { downloadFile });
-      // You can implement other node event listeners here if needed
+
+      // Register 'csvToJson' task
+      on('task', {
+        csvToJson(data) {
+          const lines = data.split("\n");
+          const result = [];
+          const headers = lines[0].split(",");
+          
+          for (let i = 1; i < lines.length; i++) {
+            const obj = {};
+            const currentline = lines[i].split(",");
+            
+            for (let j = 0; j < headers.length; j++) {
+              obj[headers[j]] = currentline[j];
+            }
+            result.push(obj);
+          }
+          
+          return result;
+        }
+      });
     },
   },
 
@@ -18,4 +38,3 @@ module.exports = defineConfig({
     baseUrl: "https://testpages.herokuapp.com/styled/tag/dynamic-table.html"
   }
 });
-

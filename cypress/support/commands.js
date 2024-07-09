@@ -27,6 +27,7 @@ require('cypress-downloadfile/lib/downloadFileCommand')
   // failing the test
     return false
     })
+  
 
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })

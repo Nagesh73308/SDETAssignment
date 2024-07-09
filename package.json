@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "cypress": "^13.6.2",
-    "cypress-downloadfile": "^1.2.4"
+    "cypress-downloadfile": "^1.2.4",
+    "xlsx": "^0.18.5"
   }
 }
